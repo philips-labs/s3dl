@@ -17,20 +17,21 @@ import (
 var GitCommit = "deadbeaf"
 
 func main() {
+    // S3 Bucket
     var svc *hsdp.S3Client
-    log.SetLevel(log.DebugLevel)
-
-
     err := gautocloud.Inject(&svc)
 
     if err != nil {
         log.Printf("error: %v\n", err)
         return
     }
+    
+    // Web server
     e := echo.New()
     e.Use(middleware.Logger())
     e.GET("/download", downloader(svc))
 
+    // Listen
     usePort := os.Getenv("PORT")
     if usePort == "" {
         usePort = "8080"
@@ -38,6 +39,7 @@ func main() {
     e.Start(":" + usePort)
 }
 
+// downloader generates HTTP 307 redirects to pre-signed bucket key URLs
 func downloader(svc *hsdp.S3Client) echo.HandlerFunc {
     return func(e echo.Context) error {
         key := e.QueryParam("key")
@@ -50,7 +52,6 @@ func downloader(svc *hsdp.S3Client) echo.HandlerFunc {
         if err != nil {
             return e.String(http.StatusBadRequest, err.Error())
         }
-        log.Printf("Presigned URL: %s\n", str)
         return e.Redirect(http.StatusTemporaryRedirect, str)
     }
 }
