@@ -52,9 +52,9 @@ func downloader(svc *hsdp.S3Client, expire int) echo.HandlerFunc {
     return func(e echo.Context) error {
         key := e.QueryParam("key")
         if key == "" {
-            key = e.Param("_*")
+            key = e.Param("*")
         }
-        log.Printf("Downloading: %s\n", key)
+        log.Printf("Downloading: %s", key)
         req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
             Bucket: aws.String(svc.Bucket),
             Key:    aws.String(key),
