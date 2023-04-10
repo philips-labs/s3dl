@@ -3,7 +3,7 @@ module s3dl
 go 1.14
 
 require (
-	github.com/aws/aws-sdk-go v1.44.221
+	github.com/aws/aws-sdk-go v1.44.240
 	github.com/cloudfoundry-community/gautocloud v1.2.0
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/labstack/echo/v4 v4.10.2
