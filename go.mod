@@ -10,5 +10,5 @@ require (
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/philips-software/gautocloud-connectors v0.7.0
 	github.com/sirupsen/logrus v1.9.0
-	github.com/spf13/viper v1.15.0
+	github.com/spf13/viper v1.16.0
 )
